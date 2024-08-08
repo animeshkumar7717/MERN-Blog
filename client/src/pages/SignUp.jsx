@@ -6,7 +6,7 @@ const SignUp = () => {
 
   const [formData, setFormData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null) 
 
   const navigate = useNavigate()
 
@@ -81,7 +81,7 @@ const SignUp = () => {
               <Label value='Password' htmlFor="password" />
               <TextInput
                 type='password'
-                placeholder='password'
+                placeholder='********'
                 id='password'
                 onChange={handleChange}
               />
@@ -95,7 +95,7 @@ const SignUp = () => {
             </Button>
           </form>
           <div className='flex gap-2 text-sm mt-5'>
-            <span>Don't have an account?</span>
+            <span>Have you already an account?</span>
             <Link to='/sign-in' className='text-blue-500'>SignIn</Link>
           </div>
           {
