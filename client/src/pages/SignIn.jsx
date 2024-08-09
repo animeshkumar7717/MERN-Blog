@@ -49,7 +49,7 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen mt-5 flex items-center justify-center">
-      <div className="flex p-6 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5 bg-white rounded-lg shadow-lg">
+      <div className="flex p-6 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5 rounded-lg shadow-lg">
         {/* Left */}
         <div className='flex-1'>
           <Link to="/" className="text-4xl font-bold dark:text-white">
