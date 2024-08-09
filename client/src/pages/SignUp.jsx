@@ -38,6 +38,11 @@ const SignUp = () => {
     } catch (error) {
       setErrorMessage(error.message);
       setIsLoading(false);
+    } finally {
+      setTimeout(()=> {
+        setErrorMessage(null)
+        setIsLoading(false)
+      }, 2000)
     }
   };
 
