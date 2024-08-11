@@ -8,6 +8,8 @@ export const test = (req, res) => {
 };
 
 export const updateUser = async(req, res, next) => {
+  console.log('req.user.id', req.user.id);
+  console.log('req.params.userId', req.params.userId);
   if(req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to update the user'))
   } 
@@ -17,17 +19,19 @@ export const updateUser = async(req, res, next) => {
     }
     req.body.password = await bcryptjs.hashSync(req.body.password, 10)
   }
-  if(req.body.username.length<6 || req.body.username.length>20) {
-    return next(errorHandler(400, 'username must be in 6 to 20 characters'))
-  }
-  if(req.body.username.includes(' ')) {
-    return next(errorHandler(400, 'username can not contains spaces'))
-  }
-  if(req.body.username !== req.body.username.toLowerCase()) {
-    return next(errorHandler(400, 'username must contain lowercase only'))
-  }
-  if(!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
-    return next(errorHandler(400, 'username only contains letters and numbers'))
+  if(req.body.username) {
+    if(req.body.username.length<6 || req.body.username.length>20) {
+      return next(errorHandler(400, 'username must be in 6 to 20 characters'))
+    }
+    if(req.body.username.includes(' ')) {
+      return next(errorHandler(400, 'username can not contains spaces'))
+    }
+    if(req.body.username !== req.body.username.toLowerCase()) {
+      return next(errorHandler(400, 'username must contain lowercase only'))
+    }
+    if(!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
+      return next(errorHandler(400, 'username only contains letters and numbers'))
+    }
   }
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {
