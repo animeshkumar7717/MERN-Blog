@@ -6,12 +6,14 @@ import { getStarted, getSuccess, getError, getFinally } from '../redux/user/User
 import OAuth from '../components/OAuth';
 
 const SignIn = () => {
-
   const [formData, setFormData] = useState({})
 
   const dispatch = useDispatch()
-  const {isLoading, error: errorMessage } = useSelector(state=>state.user);
-
+  const {isLoading, error: errorMessage } = useSelector(state=>{
+    console.log('state.user', state.user);
+    
+    return state.user
+  });
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -46,6 +48,35 @@ const SignIn = () => {
       }, 2000)
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!formData.email || !formData.password) {
+  //     return dispatch(getError('Please fill out all the fields!'));
+  //   }
+  //   try {
+  //     dispatch(getStarted());
+  //     const res = await fetch('api/auth/signin', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(formData),
+  //     });
+  //     const data = await res.json();
+      
+  //     if (!res.ok || data.success === false) {
+  //       throw new Error(data.message || 'Failed to sign in');
+  //     }
+      
+  //     dispatch(getSuccess(data));
+  //     navigate('/');
+  //   } catch (error) {
+  //     dispatch(getError(error.message));
+  //   } finally {
+  //     setTimeout(() => {
+  //       dispatch(getFinally());
+  //     }, 2000);
+  //   }
+  // };  
 
   return (
     <div className="min-h-screen mt-5 flex items-center justify-center">

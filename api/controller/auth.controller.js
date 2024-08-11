@@ -68,7 +68,6 @@ export const google = async (req, res, next) => {
     
     if(user) {
       const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
-      console.log('inside user found!');
       
       const { password, ...rest } = user._doc
       return res.status(200).cookie('access_token', token, {
