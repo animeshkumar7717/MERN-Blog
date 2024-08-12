@@ -15,7 +15,6 @@ export const userSlice = createSlice({
       state.error = null;
     },
     getSuccess: (state, action) => {
-      console.log("getSuccess action dispatched", action.payload);
       state.currentUser = action.payload;
       state.isLoading = false;
       state.error = null;

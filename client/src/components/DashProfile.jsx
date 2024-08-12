@@ -144,18 +144,14 @@ export default function DashProfile() {
   };
 
   const handleDeleteUser = async () => {
-    setShowModal(false);
-    console.log('inside handleDeleteUser functionality');
-    
+    setShowModal(false);    
     try {
       dispatch(deleteStarted());
-      console.log('before sending the request');
       
       const res = await fetch(`api/user/delete/${currentUser._id}`, {
         method: "DELETE",
       });
-      console.log('after sending the request', res);
-
+      
       const data = await res.json();
       if (!res.ok) {
         dispatch(deleteError(data.message));

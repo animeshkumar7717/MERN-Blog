@@ -9,11 +9,7 @@ const SignIn = () => {
   const [formData, setFormData] = useState({})
 
   const dispatch = useDispatch()
-  const {isLoading, error: errorMessage } = useSelector(state=>{
-    console.log('state.user', state.user);
-    
-    return state.user
-  });
+  const {isLoading, error: errorMessage } = useSelector(state=> state.user);
   const navigate = useNavigate()
 
   const handleChange = (e) => {
