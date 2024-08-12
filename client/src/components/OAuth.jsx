@@ -24,7 +24,7 @@ const OAuth = () => {
                     email: resultFromGoogle.user.email,
                     googlePhotoUrl: resultFromGoogle.user.photoURL
                 })
-            })
+            })                        
             const data = await res.json()
             if(res.ok) {
                 dispatch(getSuccess(data))
