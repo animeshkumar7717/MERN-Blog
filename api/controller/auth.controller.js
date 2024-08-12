@@ -58,6 +58,7 @@ export const signIn = async (req, res, next) => {
 };
 
 export const google = async (req, res, next) => {
+  
   const { 
     name,
     email,
@@ -69,7 +70,7 @@ export const google = async (req, res, next) => {
     if(user) {
       const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
       
-      const { password, ...rest } = user._doc
+      const { password, ...rest } = user._doc      
       return res.status(200).cookie('access_token', token, {
         httpOnly: true ,
       }).json(rest)
@@ -81,11 +82,11 @@ export const google = async (req, res, next) => {
         email,
         password: hashPassword,
         profilePicture: googlePhotoUrl
-      })
+      })      
       await newUser.save();
       const token = jwt.sign({ id: newUser._id}, process.env.JWT_SECRET);
       const { password, ...rest } = newUser._doc;
-
+      
       return res.status(200).cookie('access_token', token, {httpOnly: true}).json(rest)
     }
   } catch (error) {

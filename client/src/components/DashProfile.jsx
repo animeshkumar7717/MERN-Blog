@@ -15,11 +15,10 @@ import {
   updateStarted,
   updateSuccess,
   updateError,
-  updateFinally,
   deleteStarted,
   deleteSuccess,
   deleteError,
-  deleteFinally,
+  signOutSuccess
 } from "../redux/user/UserSlice";
 
 export default function DashProfile() {
@@ -62,6 +61,7 @@ export default function DashProfile() {
       setImageFileUploadError(null);
     }, 3000);
   }
+
   const uploadImage = async () => {
     setImageFileUploading(true);
     setImageFileUploadError(null);
@@ -108,7 +108,7 @@ export default function DashProfile() {
       return;
     }
 
-    if (!formData.username && !formData.email && !formData.password) {
+    if (!formData.username && !formData.email && !formData.password && !image) {
       setUploadUserError("All fields are empty");
     }
 
@@ -133,7 +133,7 @@ export default function DashProfile() {
         setUploadUserError(data.message);
       } else {
         dispatch(updateSuccess(data));
-        if (formData.username || formData.email || formData.password) {
+        if (formData.username || formData.email || formData.password || image) {
           setUploadUserSuccess("user's profile uploaded successfully");
         }
       }
@@ -162,6 +162,22 @@ export default function DashProfile() {
       dispatch(deleteError(error.message));
     }
   };
+
+  const handleSignOut = async() => {
+    try {
+      const res = await fetch('api/user/signout', {
+        method: 'POST'
+      })
+      const data = await res.json();
+      if(!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signOutSuccess())
+      }
+    } catch (error) {
+      console.log('error');
+    }
+  }
 
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
@@ -241,7 +257,7 @@ export default function DashProfile() {
         <span onClick={() => setShowModal(true)} className="cursor-pointer">
           Delete Account
         </span>
-        <span className="cursor-pointer">Sign Out</span>
+        <span onClick={handleSignOut} className="cursor-pointer">Sign Out</span>
       </div>
       {uploadUserSuccess && (
         <Alert color="success" className="mt-5">
