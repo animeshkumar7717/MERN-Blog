@@ -1,6 +1,7 @@
 import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
 import {
   getDownloadURL,
   getStorage,
@@ -33,7 +34,7 @@ export default function DashProfile() {
   const [formData, setFormData] = useState({});
   const imagePickerRef = useRef();
 
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -249,9 +250,20 @@ export default function DashProfile() {
           onChange={handleChange}
         />
 
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button type="submit" gradientDuoTone="purpleToBlue" outline disabled={loading || imageFileUploading}> 
+          {loading ? 'Loading...' : 'Update'}
         </Button>
+        {
+          currentUser.isAdmin && (
+            <Link to={'/create-post'}>
+              <Button
+                type="button"
+                className="w-full"
+                gradientDuoTone='purpleToPink'
+              >Post</Button>
+            </Link>
+          )
+        }
       </form>
       <div className="flex justify-between text-red-500 mt-5">
         <span onClick={() => setShowModal(true)} className="cursor-pointer">
