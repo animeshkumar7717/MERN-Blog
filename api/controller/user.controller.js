@@ -8,8 +8,6 @@ export const test = (req, res) => {
 };
 
 export const updateUser = async(req, res, next) => {
-  console.log('req.user.id', req.user.id);
-  console.log('req.params.userId', req.params.userId);
   if(req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to update the user'))
   } 
@@ -48,3 +46,27 @@ export const updateUser = async(req, res, next) => {
     next(error)
   }
 };
+
+
+export const deleteUser = async(req,res,next) => {
+  console.log('inside the delete user');
+  
+  if(req.user.id !== req.params.userId) {    
+    console.log('req.user.id', req.user.id);
+    console.log('req.params.userId', req.params.userId);
+    
+    return next(403, 'You are not allowed to delete this user!')
+  }
+  try {
+    console.log('inside try block');
+    
+    console.log('req.user.id', req.user.id);
+    console.log('req.params.userId', req.params.userId);
+    await User.findByIdAndDelete(req.params.userId)
+    res.status(200).json({ mennsage: 'user deleted successfully!'})
+  } catch (error) {
+    console.log('inside catch block');
+    
+    next(error);
+  }
+}
