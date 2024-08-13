@@ -12,10 +12,10 @@ export default function CreatePost() {
           <TextInput type='text' placeholder='Title' required id='title' className='flex-1' />
           <Select>
             <option value="uncategorized">Select a category</option>
-            <option value="uncategorized">JavaScript</option>
-            <option value="uncategorized">NodeJs</option>
-            <option value="uncategorized">ReactJs</option>
-            <option value="uncategorized">DataBase</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="NodeJs">NodeJs</option>
+            <option value="ReactJs">ReactJs</option>
+            <option value="DataBase">DataBase</option>
           </Select>
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
