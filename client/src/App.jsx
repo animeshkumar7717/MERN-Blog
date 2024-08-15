@@ -10,6 +10,7 @@ import Header from './components/Header'
 import FooterComponent from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
 import Admin from './components/Admin'
+import UpdatePost from './pages/UpadtePost'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         </Route>
         <Route element={<Admin />}>
           <Route path='/create-post' element={<CreatePost />} />
+          <Route path='/update-post/:id' element={<UpdatePost />} />
         </Route>
       </Routes>
       <FooterComponent/>
