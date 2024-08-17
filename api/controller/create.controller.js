@@ -1,6 +1,28 @@
 import Post from "../models/post.model.js";
 import { errorHandler } from "../utils/error.js";
 
+const generateSlug = async (title) => {
+  const baseSlug = title
+    .split(" ")
+    .join("-")
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9]/g, "-")
+    .replace(/-+/g, "-") 
+    .replace(/^-|-$/g, ""); 
+
+  let uniqueSlug = baseSlug;
+  let slugExists = await Post.findOne({ slug: uniqueSlug });
+
+  let suffix = 1;
+  while (slugExists) {
+    suffix += 1;
+    uniqueSlug = `${baseSlug}-${suffix.toString().padStart(3, "0")}`;
+    slugExists = await Post.findOne({ slug: uniqueSlug });
+  }
+
+  return baseSlug;
+};
+
 export const createPost = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You are not allowed to create a Post!"));
@@ -8,17 +30,16 @@ export const createPost = async (req, res, next) => {
   if (!req.body.title || !req.body.content) {
     return next(errorHandler(400, "Please Provide all the required fields!"));
   }
-  const slug = req.body.title
-    .split(" ")
-    .join("-")
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9]/g, "-");
-  const newPost = new Post({
-    ...req.body,
-    slug,
-    userId: req.user.id,
-  });
+
   try {
+    const slug = await generateSlug(req.body.title);
+
+    const newPost = new Post({
+      ...req.body,
+      slug,
+      userId: req.user.id,
+    });
+
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
   } catch (error) {
@@ -87,6 +108,7 @@ export const updatePost = async (req, res, next) => {
   if(!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to update this post!'))
   }
+  
   try {
     const updatedPost = await Post.findByIdAndUpdate(req.params.postId, {
       $set: {

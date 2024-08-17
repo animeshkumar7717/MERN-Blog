@@ -20,9 +20,8 @@ export default function UpdatePost() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
-  const { id } = useParams();
+  const { id } = useParams();  
 
-  console.log('idid', id);
   
 
   const navigate = useNavigate();
@@ -87,7 +86,7 @@ export default function UpdatePost() {
     }
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();   
     try {
       const res = await fetch(`/api/post/updatePost/${formData._id}/${currentUser._id}`, {
         method: 'PUT',
@@ -96,7 +95,7 @@ export default function UpdatePost() {
         },
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
+      const data = await res.json();     
       if (!res.ok) {
         setPublishError(data.message);
         return;

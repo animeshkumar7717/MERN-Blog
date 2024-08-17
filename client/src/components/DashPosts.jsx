@@ -118,11 +118,8 @@ export default function DashPosts() {
                     </span>
                   </Table.Cell>
                   <Table.Cell>
-                    <Link
-                      to={`/update-post/${post._id}`}
-                      className="text-teal-500 hover:underline"
-                    >
-                      <span>Edit</span>
+                    <Link to={`/update-post/${post._id}`} className="text-teal-500 hover:underline">
+                        <span>Edit</span>
                     </Link>
                   </Table.Cell>
                 </Table.Row>
