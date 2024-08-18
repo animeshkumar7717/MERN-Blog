@@ -71,7 +71,7 @@ export default function DashPosts() {
 
   return (
     <div
-      className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300
+      className="table-auto overflow-x-scroll md:mx-auto p-3 m-auto mt-0 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300
     dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500"
     >
       {currentUser.isAdmin && userPosts.length > 0 ? (
