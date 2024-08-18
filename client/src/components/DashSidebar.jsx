@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiUser, HiDocumentText, HiOutlineUserGroup } from "react-icons/hi";
+import { HiArrowSmRight, HiUser, HiDocumentText, HiOutlineUserGroup, HiAnnotation } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutSuccess } from "../redux/user/UserSlice";
@@ -51,29 +51,39 @@ export default function DashSidebar() {
            Profile
           </Sidebar.Item>
         </Link>
-        {currentUser.isAdmin && (   
-          <Link to={"/dashboard?tab=post"}>
-            <Sidebar.Item
-              active={tab === "post"}
-              icon={HiDocumentText}
-              labelColor="dark"
-              as='span'
-            >
-              Post
-            </Sidebar.Item>
-          </Link>
-        )}
-        {currentUser.isAdmin && (   
-          <Link to={"/dashboard?tab=user"}>
-            <Sidebar.Item
-              active={tab === "user"}
-              icon={HiOutlineUserGroup}
-              labelColor="dark"
-              as='span'
-            >
+        {currentUser.isAdmin && ( 
+          <>
+            <Link to={"/dashboard?tab=post"}>
+              <Sidebar.Item
+                active={tab === "post"}
+                icon={HiDocumentText}
+                labelColor="dark"
+                as='span'
+              >
+                Post
+              </Sidebar.Item>
+            </Link>
+            <Link to={"/dashboard?tab=user"}>
+              <Sidebar.Item
+                active={tab === "user"}
+                icon={HiOutlineUserGroup}
+                labelColor="dark"
+                as='span'
+              >
               User
-            </Sidebar.Item>
-          </Link>
+              </Sidebar.Item>
+            </Link>
+            <Link to={"/dashboard?tab=comments"}>
+              <Sidebar.Item
+                active={tab === "comments"}
+                icon={HiAnnotation}
+                labelColor="dark"
+                as='span'
+              >
+              Comments
+              </Sidebar.Item>
+            </Link>
+          </>  
         )}
         <Sidebar.Item icon={HiArrowSmRight} className="cursor-pointer" onClick={handleSignOut}>
           Sign Out

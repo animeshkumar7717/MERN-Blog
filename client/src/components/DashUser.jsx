@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Button, Modal, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { FaCheck, FaCross, FaTimes } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 export default function DashUser() {
   const { currentUser } = useSelector((state) => state.user);
@@ -11,19 +11,18 @@ export default function DashUser() {
   const [user, setUser] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [userIdToDelete, setUserIdToDelete] = useState('');
+  const [userIdToDelete, setUserIdToDelete] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const res = await fetch(`api/user/getusers?userId=${currentUser._id}`);
         const data = await res.json();
-        console.log('data', data);
         
         if (res.ok) {
             setUser(data.user);
-            if(data.user.length<9) {
-                setShowMore(false)
+            if (data.user.length < 9) {
+                setShowMore(false);
             }
         }
       } catch (error) {
@@ -53,33 +52,30 @@ export default function DashUser() {
     }
   };
 
-  const handleDeleteUser = async(e) => {
+  const handleDeleteUser = async (e) => {
     setShowModal(false);
     try {
       const res = await fetch(`api/user/delete/${userIdToDelete}`, {
-        method: 'DELETE'
-      })
+        method: "DELETE",
+      });
       const data = await res.json();
-      if(!res.ok){
-        console.log(data.message);        
+      if (!res.ok) {
+        console.log(data.message);
       } else {
-        setUser((prev)=>
-          prev.filter((user)=> user._id !== userIdToDelete)
-        )
+        setUser((prev) =>
+          prev.filter((user) => user._id !== userIdToDelete)
+        );
       }
     } catch (error) {
-      console.log('error', error);
+      console.log("error", error);
     }
-  }
+  };
 
   return (
-    <div
-      className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300
-    dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500"
-    >
+    <div className="table-auto overflow-x-auto md:mx-auto p-3 m-auto mt-0 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100 dark:scrollbar-thumb-slate-500 dark:scrollbar-track-slate-700">
       {currentUser.isAdmin && user.length > 0 ? (
         <>
-          <Table hoverable className="shadow-md">
+          <Table hoverable className="shadow-lg">
             <Table.Head>
               <Table.HeadCell>Date Created</Table.HeadCell>
               <Table.HeadCell>User Image</Table.HeadCell>
@@ -91,34 +87,35 @@ export default function DashUser() {
             {user.map((user) => (
               <Table.Body className="divide-y" key={user._id}>
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Cell>{new Date(user.createdAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>
-                    {new Date(user.createdAt).toLocaleDateString()}
-                  </Table.Cell>
-                  <Table.Cell>
-                      <img
-                        src={user.profilePicture}
-                        alt={user.username}
-                        className="w-10 h-10 object-cover bg-gray-500 rounded-full"
-                      />
+                    <img
+                      src={user.profilePicture}
+                      alt={user.username}
+                      className="w-10 h-10 object-cover rounded-full border border-gray-300 dark:border-gray-600"
+                    />
                   </Table.Cell>
                   <Table.Cell className="font-medium text-gray-900 dark:text-white">
                     {user.username}
                   </Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
-                  <Table.Cell>{user.isAdmin ? (<FaCheck className="text-green-500" />):(<FaTimes className="text-red-500" />)}</Table.Cell>
+                  <Table.Cell>
+                    {user.isAdmin ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )}
+                  </Table.Cell>
                   <Table.Cell>
                     <span
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                       onClick={() => {
-                        setShowModal(true)
-                        setUserIdToDelete(user._id)
+                        setShowModal(true);
+                        setUserIdToDelete(user._id);
                       }}
                     >
                       Delete
                     </span>
-                  </Table.Cell>
-                  <Table.Cell>
-                    
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
@@ -127,14 +124,14 @@ export default function DashUser() {
           {showMore && (
             <button
               onClick={handleShowMore}
-              className="self-center w-full text-sm text-teal-500 py-7"
+              className="w-full text-sm text-teal-500 py-3 mt-3"
             >
               Show More
             </button>
           )}
         </>
       ) : (
-        <p>You have no Users</p>
+        <p className="text-center text-gray-500 dark:text-gray-400">You have no Users</p>
       )}
       <Modal
         show={showModal}
