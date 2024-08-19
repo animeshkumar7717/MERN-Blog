@@ -7,21 +7,24 @@ export default function About() {
         </h1>
         <div className="text-md text-gray-600 dark:text-gray-300 flex flex-col gap-6">
           <p>
-            Animesh Kumar, a passionate developer, created this blog to share his thoughts and ideas on technology, coding, and more. Here, you'll find articles and tutorials on web development, software engineering, programming languages, and SEO, with new content added weekly.
+            Animesh Kumar, a passionate developer, created this blog to share
+            his thoughts and ideas on technology, coding, and more. Here, you'll
+            find articles and tutorials on web development, software
+            engineering, programming languages, and SEO, with new content added
+            weekly.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
-            What You’ll Find Here
-          </h3>
           <p>
-            Expect concise, insightful content that covers the latest in tech. Animesh is always exploring new technologies, so there's always something fresh to learn, whether you're new to coding or a seasoned developer.
+            Expect concise, insightful content that covers the latest in tech.
+            Animesh is always exploring new technologies, so there's always
+            something fresh to learn, whether you're new to coding or a seasoned
+            developer.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
-            Join the Conversation
-          </h3>
           <p>
-            We encourage you to engage with the content by leaving comments, liking, and replying to others. Join the conversation and become part of a community that learns and grows together.
+            We encourage you to engage with the content by leaving comments,
+            liking, and replying to others. Join the conversation and become
+            part of a community that learns and grows together.
           </p>
         </div>
       </div>
