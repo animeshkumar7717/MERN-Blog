@@ -96,7 +96,7 @@ export const getComment = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
-    const sortdirection = req.query.sort === 'desc' ? -1 : 1;
+    const sortdirection = req.query.sort === 'desc' ? 1 : -1;
     const comments = await Comment.find()
     .sort({ createdAt: sortdirection})
     .skip(startIndex)
